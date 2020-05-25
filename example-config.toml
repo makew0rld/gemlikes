@@ -1,0 +1,23 @@
+# Alter this and rename it to gemlikes.toml
+# Put it in the same directory as the binaries
+
+# Where to store data:
+data = "/home/username/.local/share/gemlikes"
+# It should be somewhere the server won't serve.
+# It must be accessible to the user that the CGI script runs under.
+# Directories will be created as needed, don't create them yourself.
+
+# The list of directories where files exist that can be liked and commented on:
+dirs = ["/var/gemini", "/var/gemini/my_gemlog"]
+# IMPORTANT: There can't be any files with same name in any of these directories,
+# if you want gemlikes to work with them.
+# Nothing bad will happen, but if you try and view the likes and comments, you'll get an error page.
+# Note that subdirectories must be specified manually, it is not recursive.
+# Note that paths should be absolute.
+# Note that the user that the binary is run under must have read access to the files
+# in those directories.
+
+# How many comments can one IP address make:
+max_comments = 5
+# If this is missing, or is 0 or < -1, then 5 is the default.
+# Setting it to -1 disables comments globally.
