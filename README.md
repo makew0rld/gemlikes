@@ -82,13 +82,14 @@ For example, if the file is at `gemini://example.com/gemlog/first-post.gmi`, and
 Gemlikes has some protections in place to prevent abuse or impersonation of the comment and liking system. Note that a server admin can make comments and likes say anything they want though.
 
 - An ID is generated based on the commenter's IP address to prevent impersonation by other commenters
+  - It's displayed right beside their username, as can be seen above
 - Usernames cannot be reused on a single page by different IP addresses
 - An IP address cannot make more than 5 comments on a page by default, although this is configurable in the `gemlikes.toml` file
 - The same IP address cannot like a file more than one time
+- Only files in the directories specified in `gemlikes.toml` can be like and commented on - Trying to reference files that don't exist will give an error
 
 ## Limitations
-- Filenames with spaces or special characters may cause issues for clients that don't escape their query strings. **It is recommended to only use ASCII filenames, with no spaces**
-  - Castor and Bombadillo should be fine.
+- Filenames with spaces or special characters may cause issues for clients that don't escape their query strings. **It is recommended to only use ASCII filenames, with no spaces.** Castor and Bombadillo should be fine.
 - It can't handle multiple files of the same name at different locations. For example if there is a file at `/myfile.gmi` and another file at `/dir/myfile.gmi`, gemlikes will refuse to display or perform actions, because it doesn't know which one is being referred to.
   - This only applies if both of the directories these files are in are included in the `gemlikes.toml` file. If only one is specified, such as `/dir`, there won't be any issues.
 - It can't handle filenames that contain a `?` - this is to support clients that handle query strings improperly
