@@ -3,7 +3,6 @@
 # Adapted from https://gist.github.com/makeworld-the-better-one/e1bb127979ae4195f43aaa3ad46b1097
 
 type setopt >/dev/null 2>&1
-set -e
 
 FAILURES=""
 NOT_ALLOWED_OS="windows js android ios illumos aix"
@@ -16,6 +15,7 @@ contains() {
 
 echo This script will try to build Darwin ARM targets and likely fail.
 echo It is known and not an issue.
+echo
 
 rm -r build || true
 mkdir build
@@ -59,7 +59,7 @@ while IFS= read -r target; do
                 if [ $status -eq 0 ]; then
                     # Move binarIES
                     mkdir -p "../build/$GOOS-arm$GOARM"
-                    mv "$BIN_FILENAME" "../build/$GOOS-arm$GOARCH"
+                    mv "$BIN_FILENAME" "../build/$GOOS-arm$GOARM"
                 else
                     FAILURES="${FAILURES} ${GOOS}/${GOARCH}${GOARM}"
                 fi
@@ -88,7 +88,9 @@ done <<< "$(go tool dist list)"
 # Create .tar.gz of each folder
 cd "$BASE_DIR/build"
 echo "Creating tar archives..."
+
 for dir in */; do
+    dir=${dir%*/}  # remove the trailing "/"
     tar czf "$dir.tar.gz" "$dir"
     rm -r "$dir"
 done
