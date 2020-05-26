@@ -94,3 +94,7 @@ Gemlikes has some protections in place to prevent abuse or impersonation of the 
   - This only applies if both of the directories these files are in are included in the `gemlikes.toml` file. If only one is specified, such as `/dir`, there won't be any issues.
 - It can't handle filenames that contain a `?` - this is to support clients that handle query strings improperly
 - Comments cannot be disabled per-file, only globally. I may add this in the future.
+
+## License
+
+Gemlikes is licensed under the GNU Affero General Public License, version 3. The main point of this LICENSE is that even if you modify the code and don't distribute the software to anyone, you still will have to release your changes if you use this code on a server for users to access. Please see the [LICENSE](./LICENSE) file for details.
