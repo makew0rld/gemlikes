@@ -92,7 +92,7 @@ func SafeInit() error {
 }
 
 func GetQueryAndIP() (string, string, error) {
-	query, err := url.QueryUnescape(os.Getenv("QUERY_STRING"))
+	query, err := url.PathUnescape(os.Getenv("QUERY_STRING"))
 	if err != nil {
 		return "", "", errors.New("your client might not be escaping query strings properly")
 	}

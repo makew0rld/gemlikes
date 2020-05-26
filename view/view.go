@@ -52,14 +52,14 @@ func main() {
 	if likes == 1 {
 		likesStr = "like. 💖"
 	}
-	likesResponse := fmt.Sprintf("# %s\n\n%d %s\n=> like?%s Add yours\n\n", file, likes, likesStr, url.QueryEscape(file))
+	likesResponse := fmt.Sprintf("# %s\n\n%d %s\n=> like?%s Add yours\n\n", file, likes, likesStr, url.PathEscape(file))
 
 	// Display comments
 
 	f, err := os.Open(shared.GetCommentsFile(file))
 	if errors.Is(err, os.ErrNotExist) {
 		// No comments yet, not a real error
-		shared.Respond(likesResponse + fmt.Sprintf("=> add-comment?%s Add a comment 💬\n", url.QueryEscape(file)))
+		shared.Respond(likesResponse + fmt.Sprintf("=> add-comment?%s Add a comment 💬\n", url.PathEscape(file)))
 		return
 	}
 	shared.HandleErr(err)
@@ -114,7 +114,7 @@ func main() {
 	if numComments == 1 {
 		commentStr = "comment"
 	}
-	commentsResponse = fmt.Sprintf("%d %s 💬\n=> add-comment?%s Add yours\n\n", numComments, commentStr, url.QueryEscape(file)) + commentsResponse
+	commentsResponse = fmt.Sprintf("%d %s 💬\n=> add-comment?%s Add yours\n\n", numComments, commentStr, url.PathEscape(file)) + commentsResponse
 
 	shared.Respond(likesResponse + commentsResponse)
 }
