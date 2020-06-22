@@ -207,3 +207,7 @@ func HandleErr(err error) {
 	RespondError(text)
 	os.Exit(0)
 }
+
+func PathEscape(path string) string {
+	return strings.ReplaceAll(url.PathEscape(path), "+", "%2B")
+}

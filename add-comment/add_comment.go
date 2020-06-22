@@ -25,7 +25,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -275,5 +274,5 @@ func main() {
 	}
 
 	shared.HandleErr(addComment(file, ip, username, comment))
-	shared.Respond(fmt.Sprintf("Comment by '%s' on '%s' added!\n=> view?%s View all comments", username, file, url.PathEscape(file)))
+	shared.Respond(fmt.Sprintf("Comment by '%s' on '%s' added!\n=> view?%s View all comments", username, file, shared.PathEscape(file)))
 }
