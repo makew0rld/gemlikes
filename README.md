@@ -2,7 +2,7 @@
 
 A liking and comment system for the [Gemini](https://gemini.circumlunar.space/) protocol, especially for gemlogs! It works using CGI, so there's no additional server to run. It should work under any server that supports CGI. Tested with Jetforce, but please file a bug if it fails under a different server.
 
-Visit `gemini://makeworld.gq/gemlog/2020-05-21-first.gmi` ([Proxy](https://portal.mozz.us/gemini/makeworld.gq/gemlog/2020-05-21-first.gmi)) to see a demo of it in action. Here's the view at the time of writing, once you click the link:
+Visit `gemini://makeworld.gq/gemlog/2020-05-21-first.gmi` ([Proxy](https://portal.mozz.us/gemini/makeworld.gq/gemlog/2020-05-21-first.gmi)) to see a demo of it in action. Here's an example output:
 
 ```
 # 2020-05-21-first.gmi
@@ -10,32 +10,8 @@ Visit `gemini://makeworld.gq/gemlog/2020-05-21-first.gmi` ([Proxy](https://porta
 15 likes! 💖
 => like?2020-05-21-first.gmi Add yours
 
-12 comments 💬
+4 comments 💬
 => add-comment?2020-05-21-first.gmi Add yours
-
-wakyct (id: a1e76953) @ Mon, 25 May 2020 18:46:18 UTC:
-Elphernaut checking in.
-
-epoch (id: 2a2b33ac) @ Sun, 24 May 2020 09:51:45 UTC:
-trying from castor again.
-
-bard (id: 802ab1a9) @ Sun, 24 May 2020 05:40:47 UTC:
-hello from bombadillo on guix system
-
-u1955 (id: 44aef935) @ Sun, 24 May 2020 05:29:22 UTC:
-geminawk(1) now has portable URI escaping.  (probably)
-
-makeworld-proxy (id: a909174f) @ Sun, 24 May 2020 05:10:40 UTC:
-Comment from mozz's proxy
-
-makeworld (id: 4f9da128) @ Sun, 24 May 2020 05:02:49 UTC:
-Second test from bombadillo
-
-makeworld (id: 4f9da128) @ Sun, 24 May 2020 05:01:36 UTC:
-Test from Castor
-
-u6186 (id: 44aef935) @ Sun, 24 May 2020 04:52:19 UTC:
-Hello from geminawk(1) on tilde.black.
 
 ben (id: 7ec5a44d) @ Sun, 24 May 2020 04:49:11 UTC:
 hello there!
@@ -60,6 +36,15 @@ There are three binaries to install: `view`, `like`, and `add-comment`.
 - They all need to be in the same directory, so that relative links will work
 
 There is also a config file that needs to be in the same directory, with the name `gemlikes.toml`. This name cannot be changed. Look at the [example-config.toml](./example-config.toml) file in the repo to see the options available. You will need to create and change the config file, it won't work without one.
+
+Finally, create a `robots.txt` file at the root of the site, and disallow any bots to access the `like` and `add-comment` binaries, to prevent accidental likes from crawlers.
+Here's an example file, if the binaries are all installed in `/cgi-bin/gemlikes/`:
+
+```robots.txt
+User-agent: *
+Disallow: /cgi-bin/gemlikes/like
+Disallow: /cgi-bin/gemlikes/add-comment
+```
 
 ## Getting binaries
 The easiest option is to download the appropriate `.tar.gz` file from the releases page, extract it (`tar xvfz filename`), and move the three binaries to the right directory as outlined above.
