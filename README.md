@@ -74,12 +74,10 @@ Gemlikes has some protections in place to prevent abuse or impersonation of the 
 - Only files in the directories specified in `gemlikes.toml` can be like and commented on - Trying to reference files that don't exist will give an error
 
 ## Limitations
-- Filenames with spaces or special characters may cause issues for clients that don't escape their query strings. **It is recommended to only use ASCII filenames, with no spaces.** Castor and Bombadillo should be fine.
 - It can't handle multiple files of the same name at different locations. For example if there is a file at `/myfile.gmi` and another file at `/dir/myfile.gmi`, gemlikes will refuse to display or perform actions, because it doesn't know which one is being referred to.
   - This only applies if both of the directories these files are in are included in the `gemlikes.toml` file. If only one is specified, such as `/dir`, there won't be any issues.
-- It can't handle filenames that contain a `?` - this is to support clients that handle query strings improperly
 - Comments cannot be disabled per-file, only globally. I may add this in the future.
 
 ## License
 
-Gemlikes is licensed under the GNU Affero General Public License, version 3. The main point of this LICENSE is that even if you modify the code and don't distribute the software to anyone, you still will have to release your changes if you use this code on a server for users to access. Please see the [LICENSE](./LICENSE) file for details.
+Gemlikes is licensed under the GNU Affero General Public License, version 3. The main point of this LICENSE is that even if you modify the code and don't distribute the software to anyone, you still will have to release your changes if you use this code on a public server. Please see the [LICENSE](./LICENSE) file for details.

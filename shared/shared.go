@@ -99,13 +99,6 @@ func GetQueryAndIP() (string, string, error) {
 	return query, os.Getenv("REMOTE_ADDR"), nil
 }
 
-// FixQuery removes the file string from the beginning of the query.
-// Some clients just append the query string, which results in query strings
-// like this: `?file.gmi?username comment text`. This removes the file part.
-func FixQuery(query, file string) string {
-	return strings.TrimPrefix(query, file+"?")
-}
-
 // IsFileValid returns a true if that file is actionable.
 // ie, it can be commented on and liked.
 func IsFileValid(file string) bool {

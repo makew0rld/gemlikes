@@ -229,7 +229,6 @@ func main() {
 	shared.HandleErr(err)
 	removeTmp(ip)
 
-	query = shared.FixQuery(query, file)
 	query = strings.ToValidUTF8(strings.TrimSpace(query), "")
 	if len(query) < 3 {
 		// 3 chars is enough for a username, space, and one-char comment
