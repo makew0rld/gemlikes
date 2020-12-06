@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
-# Adapted from https://gist.github.com/makeworld-the-better-one/e1bb127979ae4195f43aaa3ad46b1097
+# Adapted from https://gist.github.com/makeworld-the-better-one/e1bb127979ae4195f43aaa3ad46b1097/e8abbae0ce5af35a227ffaeb1c589ac071738fd2
 
 type setopt >/dev/null 2>&1
 
-FAILURES=""
 NOT_ALLOWED_OS="windows js android ios illumos aix"
+NOT_ALLOWED_ARCH="mips mips64 mips64le mipsle ppc64 ppc64le riscv64 s390x"
+
+FAILURES=""
 BASE_DIR="$(pwd)"
 
 contains() {
@@ -13,11 +15,10 @@ contains() {
     [[ $1 =~ (^|[[:space:]])$2($|[[:space:]]) ]]
 }
 
-echo This script will try to build Darwin ARM targets and likely fail.
-echo It is known and not an issue.
-echo
+export GO111MODULES=on
+export CGO_ENABLED=0
 
-rm -r build || true
+rm -rf build
 mkdir build
 
 # Get all targets
@@ -26,6 +27,13 @@ while IFS= read -r target; do
     GOARCH=${target#*/}
     
     if contains "$NOT_ALLOWED_OS" "$GOOS" ; then
+        continue
+    fi
+    if contains "$NOT_ALLOWED_ARCH" "$GOARCH" ; then
+        continue
+    fi
+
+    if [[ $GOOS == "darwin" ]] && [[ $GOARCH = "arm64" ]]; then
         continue
     fi
     
@@ -42,7 +50,7 @@ while IFS= read -r target; do
                 # This is a guess, it's not clear what Windows supports from the docs
                 # But I was able to build all these on my machine
                 arms="5 6 7" 
-            elif [[ $GOOS == *"bsd"  ]]; then
+            elif [[ $GOOS == *"bsd" ]]; then
                 arms="6 7"
             else
                 # Linux goes here
