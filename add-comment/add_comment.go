@@ -200,10 +200,7 @@ func addComment(file, ip, username, comment string) error {
 
 func main() {
 	err := shared.SafeInit()
-	if err != nil {
-		shared.RespondError(err.Error())
-		return
-	}
+	shared.HandleErr(err)
 
 	query, ip, err := shared.GetQueryAndIP()
 	shared.HandleErr(err)
@@ -229,7 +226,7 @@ func main() {
 	shared.HandleErr(err)
 	removeTmp(ip)
 
-	query = strings.ToValidUTF8(strings.TrimSpace(query), "")
+	query = strings.TrimSpace(query)
 	if len(query) < 3 {
 		// 3 chars is enough for a username, space, and one-char comment
 		shared.RespondError("Your input was too short.")
@@ -243,7 +240,7 @@ func main() {
 	}
 	// Validate username, comment, etc
 	username := strings.TrimSpace(query[:idx])
-	if len([]rune(username)) > 40 || len([]rune(username)) <= 0 { // XXX: Make this configurable?
+	if len([]rune(username)) > 40 || len([]rune(username)) <= 0 { // TODO: Make this configurable?
 		shared.RespondError("Your username is invalid. It must be <= 40 characters and > 0.")
 		return
 	}

@@ -1,6 +1,6 @@
 # gemlikes
 
-A liking and comment system for the [Gemini](https://gemini.circumlunar.space/) protocol, especially for gemlogs! It works using CGI, so there's no additional server to run. It should work under any server that supports CGI. Tested with Jetforce, but please file a bug if it fails under a different server.
+A liking and comment system for the [Gemini](https://gemini.circumlunar.space/) protocol, especially for gemlogs! It works using CGI, so there's no additional server to run.
 
 Visit `gemini://makeworld.gq/gemlog/2020-05-21-first.gmi` ([Proxy](https://portal.mozz.us/gemini/makeworld.gq/gemlog/2020-05-21-first.gmi)) to see a demo of it in action. Here's an example output:
 
@@ -28,7 +28,11 @@ Test comment.
 
 Comments are displayed with the latest at the top.
 
+
 ## Installation
+
+**There is a bug in the [Molly Brown](https://tildegit.org/solderpunk/molly-brown) Gemini server that causes gemlikes to not work. Please install [my fork](https://tildegit.org/makeworld/molly-brown) instead, until [this PR](https://tildegit.org/solderpunk/molly-brown/pulls/18) gets merged.** Other servers should be fine.
+
 There are three binaries to install: `view`, `like`, and `add-comment`.
 - The binary names must not be changed
 - They should be placed in a directory that will allow your server to run the binaries
@@ -47,6 +51,7 @@ Disallow: /cgi-bin/gemlikes/add-comment
 ```
 
 ## Getting binaries
+
 The easiest option is to download the appropriate `.tar.gz` file from the releases page, extract it (`tar xvfz filename`), and move the three binaries to the right directory as outlined above.
 
 If you have the Go toolchain installed, you can also clone the repo (Not `go get`), and then run [`single-build.sh`](./single-build.sh). The binaries will be in the newly made `build` folder, ready to be moved.
@@ -64,6 +69,7 @@ For example, if the file is at `gemini://example.com/gemlog/first-post.gmi`, and
 ```
 
 ## Protective Measures
+
 Gemlikes has some protections in place to prevent abuse or impersonation of the comment and liking system. Note that a server admin can make comments and likes say anything they want though.
 
 - An ID is generated based on the commenter's IP address to prevent impersonation by other commenters
@@ -74,6 +80,7 @@ Gemlikes has some protections in place to prevent abuse or impersonation of the 
 - Only files in the directories specified in `gemlikes.toml` can be like and commented on - Trying to reference files that don't exist will give an error
 
 ## Limitations
+
 - It can't handle multiple files of the same name at different locations. For example if there is a file at `/myfile.gmi` and another file at `/dir/myfile.gmi`, gemlikes will refuse to display or perform actions, because it doesn't know which one is being referred to.
   - This only applies if both of the directories these files are in are included in the `gemlikes.toml` file. If only one is specified, such as `/dir`, there won't be any issues.
 - Comments cannot be disabled per-file, only globally. I may add this in the future.
