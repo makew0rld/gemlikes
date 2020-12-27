@@ -31,7 +31,7 @@ Comments are displayed with the latest at the top.
 
 ## Installation
 
-**There is a bug in the [Molly Brown](https://tildegit.org/solderpunk/molly-brown) Gemini server that causes gemlikes to not work. Please install [my fork](https://tildegit.org/makeworld/molly-brown) instead, until [this PR](https://tildegit.org/solderpunk/molly-brown/pulls/18) gets merged.** Other servers should be fine.
+**There *was* a bug in the [Molly Brown](https://tildegit.org/solderpunk/molly-brown) Gemini server that caused gemlikes to not work.** Please update your Molly Brown to commit `2e4a10297e` or later, if you're using it. Other servers should be fine.
 
 There are three binaries to install: `view`, `like`, and `add-comment`.
 - The binary names must not be changed
