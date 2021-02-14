@@ -65,7 +65,7 @@ func main() {
 		return
 	}
 
-	if shared.LikesDisabled() {
+	if shared.LikesDisabled {
 		shared.RespondError("Likes have been disabled.")
 		return
 	}

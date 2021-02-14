@@ -46,7 +46,7 @@ func main() {
 
 	// Display likes
 	likesResponse := ""
-	if !shared.LikesDisabled() {
+	if !shared.LikesDisabled {
 		likes, err := numLikes(file)
 		shared.HandleErr(err)
 		likesStr := "likes! 💖"
