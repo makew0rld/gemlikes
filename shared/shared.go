@@ -204,3 +204,8 @@ func HandleErr(err error) {
 func PathEscape(path string) string {
 	return strings.ReplaceAll(url.PathEscape(path), "+", "%2B")
 }
+
+func LikesDisabled() bool {
+	config, _ := toml.LoadFile(GetConfigPath())
+	return config.Get("disable_likes").(bool)
+}

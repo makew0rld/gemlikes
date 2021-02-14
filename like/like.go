@@ -64,6 +64,12 @@ func main() {
 		shared.RespondError("File not valid for liking.")
 		return
 	}
+
+	if shared.LikesDisabled() {
+		shared.RespondError("Likes have been disabled.")
+		return
+	}
+
 	already, err := hasLikedAlready(file, ip)
 	shared.HandleErr(err)
 	if already {
