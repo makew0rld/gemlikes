@@ -21,3 +21,7 @@ dirs = ["/var/gemini", "/var/gemini/my_gemlog"]
 max_comments = 5
 # If this is missing, or is 0 or < -1, then 5 is the default.
 # Setting it to -1 disables comments globally.
+
+# Disables Likes for all files
+disable_likes = false
+# Must be true or false

@@ -45,13 +45,16 @@ func main() {
 	}
 
 	// Display likes
-	likes, err := numLikes(file)
-	shared.HandleErr(err)
-	likesStr := "likes! 💖"
-	if likes == 1 {
-		likesStr = "like. 💖"
+	likesResponse := ""
+	if !shared.LikesDisabled {
+		likes, err := numLikes(file)
+		shared.HandleErr(err)
+		likesStr := "likes! 💖"
+		if likes == 1 {
+			likesStr = "like. 💖"
+		}
+		likesResponse = fmt.Sprintf("# %s\n\n%d %s\n=> like?%s Add yours\n\n", file, likes, likesStr, shared.PathEscape(file))
 	}
-	likesResponse := fmt.Sprintf("# %s\n\n%d %s\n=> like?%s Add yours\n\n", file, likes, likesStr, shared.PathEscape(file))
 
 	// Display comments
 

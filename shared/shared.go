@@ -13,6 +13,7 @@ import (
 )
 
 var ErrConfigDir = errors.New("config dir invalid or not set")
+var LikesDisabled = false
 
 func PathExists(path string) bool {
 	_, err := os.Stat(path)
@@ -87,6 +88,10 @@ func SafeInit() error {
 	if !ok || strings.TrimSpace(ip) == "" {
 		// No remote addr
 		return errors.New("no REMOTE_ADDR specified, server CGI error")
+	}
+	// Get config "disable_likes" variable
+	if config.Get("disable_likes") != nil {
+		LikesDisabled = config.Get("disable_likes").(bool)
 	}
 	return nil
 }
