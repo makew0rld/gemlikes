@@ -167,6 +167,7 @@ func getId(ip string) string {
 	ip = strings.ReplaceAll(ip, "_", ":") // Use real IP address, not sanitized
 	h := sha256.New()
 	h.Write([]byte(ip))
+	shared.WriteIPSalt(h)
 	// First 8 chars
 	return fmt.Sprintf("%x", h.Sum(nil))[:8]
 }
