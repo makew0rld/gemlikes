@@ -232,6 +232,11 @@ func main() {
 		shared.RespondError("Your input was too short.")
 		return
 	}
+
+	// Remove newlines
+	query = strings.ReplaceAll(query, "\r\n", " ")
+	query = strings.ReplaceAll(query, "\n", " ")
+
 	// Get username, by finding the first space
 	idx := strings.Index(query, " ")
 	if idx <= -1 {
@@ -257,10 +262,6 @@ func main() {
 		shared.RespondError("Your comment was empty, it was not added.")
 		return
 	}
-
-	// Remove newlines
-	comment = strings.ReplaceAll(comment, "\r\n", " ")
-	comment = strings.ReplaceAll(comment, "\n", " ")
 
 	taken, err := nameTaken(file, username, ip)
 	shared.HandleErr(err)
