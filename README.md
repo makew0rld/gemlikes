@@ -2,6 +2,15 @@
 
 A liking and comment system for the [Gemini](https://gemini.circumlunar.space/) protocol, especially for gemlogs! It works using CGI, so there's no additional server to run.
 
+---
+
+**This is mostly a toy/demo project.** It works, and I run it on my gemlog, but it was quickly made and not well designed. It should be rewritten to be more robust and use a real database, but doing that is not a priority for me.
+
+Feel free to file issues or PRs, but I won't be providing a lot of support.
+
+---
+
+
 Visit `gemini://makeworld.space/gemlog/2020-05-21-first.gmi` ([Proxy](https://portal.mozz.us/gemini/makeworld.space/gemlog/2020-05-21-first.gmi)) to see a demo of it in action. Here's an example output:
 
 ```
