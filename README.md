@@ -8,6 +8,8 @@ A liking and comment system for the [Gemini](https://gemini.circumlunar.space/) 
 
 Feel free to file issues or PRs, but I won't be providing a lot of support.
 
+Maybe check out [nimlike](https://github.com/Mihara/nimlike) instead!
+
 ---
 
 
