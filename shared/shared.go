@@ -2,8 +2,11 @@
 package shared
 
 import (
+	"crypto/rand"
 	"errors"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -14,6 +17,8 @@ import (
 
 var ErrConfigDir = errors.New("config dir invalid or not set")
 var LikesDisabled = false
+
+var ipSaltValue []byte
 
 func PathExists(path string) bool {
 	_, err := os.Stat(path)
@@ -93,6 +98,12 @@ func SafeInit() error {
 	if config.Get("disable_likes") != nil {
 		LikesDisabled = config.Get("disable_likes").(bool)
 	}
+	// Load IP->ID salt
+	ipSaltValue, err = loadIPSalt(config, data.(string))
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -174,6 +185,35 @@ func GetCommentsDir() string {
 
 func GetTmpDir() string {
 	return filepath.Join(getDataDir(), "tmp")
+}
+
+func WriteIPSalt(w io.Writer) (int, error) {
+	return w.Write(ipSaltValue)
+}
+
+func loadIPSalt(config *toml.Tree, dataDir string) ([]byte, error) {
+	ipSaltMethod := "auto"
+	if key := config.Get("ip_salt"); key != nil {
+		ipSaltMethod = key.(string)
+	}
+
+	ipSaltPath := ipSaltMethod
+	switch ipSaltMethod {
+	case "disabled":
+		return nil, nil
+	case "auto":
+		ipSaltPath = filepath.Join(dataDir, "ip_salt")
+		f, err := os.OpenFile(ipSaltPath, os.O_RDWR|os.O_CREATE|os.O_EXCL, 0o644)
+		if err == nil {
+			// First time, create random data
+			defer f.Close()
+			if _, err := io.CopyN(f, rand.Reader, 16); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	return ioutil.ReadFile(ipSaltPath)
 }
 
 func getConfigDir() string {

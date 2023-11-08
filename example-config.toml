@@ -7,6 +7,18 @@ data = "/home/username/.local/share/gemlikes"
 # It must be accessible to the user that the CGI script runs under.
 # Directories will be created as needed, don't create them yourself.
 
+# Where to store IP salt:
+ip_salt = "auto"                              # default
+#ip_salt = "disabled"                         # disable IP salting (old behavior)
+#ip_salt = "/usr/local/etc/gemlikes/ip_salt"  # use existing salt
+# If unset, the default is "auto", which places the salt in the data directory,
+# generating it the first time if needed. "disabled" restores the old behavior,
+# which can potentially expose IP addresses to sufficiently-motivated attackers.
+# Specifying an absolute path uses the contents of the given file as a salt,
+# which must already exist. This allows multiple instances of gemlikes (e.g. in
+# a shared environment) to present identical identifiers for the same IP. The
+# path should be somewhere the server won't serve.
+
 # The list of directories where files exist that can be liked and commented on:
 dirs = ["/var/gemini", "/var/gemini/my_gemlog"]
 # IMPORTANT: There can't be any files with same name in any of these directories,
